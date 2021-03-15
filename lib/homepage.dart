@@ -7,7 +7,9 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.red.shade800,
           title: Text("Nöbetçi Eczanem"),
+          centerTitle: true,
         ),
         body: ListView.builder(
           itemCount: CityList.cityList.length,
@@ -17,7 +19,7 @@ class MyHomePage extends StatelessWidget {
                 InkWell(
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => IlcePage(cityName:CityList.cityList[index],),
+                      builder: (context) => IlcePage(cityName:CityList.cityList[index] ,),
                     ));
                   },
                   child: ListTile(
