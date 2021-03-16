@@ -14,7 +14,7 @@ class EczanePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.red.shade800,
-        title: Text(this.ilce +"/"+this.il),
+        title: Text(this.ilce + "/" + this.il),
         centerTitle: true,
       ),
       body: FutureBuilder(
@@ -28,86 +28,95 @@ class EczanePage extends StatelessWidget {
               itemCount: snapshot.data.result.length,
               itemBuilder: (context, index) {
                 var eczane = snapshot.data.result[index];
-                return Container(
-                  margin: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-                  height: eczane.address.length > 45 ? 200 : 150,
-                  width: MediaQuery.of(context).size.width,
-                  child: Card(
-                    elevation: 8,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(25)),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 25, top: 25),
-                          child: Text(
-                            eczane.name,
-                            style: TextStyle(
-                                fontSize: 22, fontWeight: FontWeight.bold),
+
+                if (snapshot.data.result.length == 0) {
+                  return Center(
+                    child: Text("Aradığını Kriterlerde Eczane Bulunamamıştır."),
+                  );
+                } else {
+                  return Container(
+                    margin: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+                    height: eczane.address.length > 45 ? 200 : 150,
+                    width: MediaQuery.of(context).size.width,
+                    child: Card(
+                      elevation: 8,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(25)),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 25, top: 25),
+                            child: Text(
+                              eczane.name,
+                              style: TextStyle(
+                                  fontSize: 22, fontWeight: FontWeight.bold),
+                            ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 10, top: 8),
-                          child: InkWell(
-                            onTap: () {
-                              print("KONUM : " + eczane.loc);
-                              launchURL(eczane.loc);
-                            },
-                            child: Row(
-                              children: [
-                                Image(
-                                  height: 30,
-                                  width: 30,
-                                  image: AssetImage("assets/images/adress.png"),
-                                ),
-                                Flexible(
-                                  child: Padding(
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10, top: 8),
+                            child: InkWell(
+                              onTap: () {
+                                print("KONUM : " + eczane.loc);
+                                launchURL(eczane.loc);
+                              },
+                              child: Row(
+                                children: [
+                                  Image(
+                                    height: 30,
+                                    width: 30,
+                                    image:
+                                        AssetImage("assets/images/adress.png"),
+                                  ),
+                                  Flexible(
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(left: 10),
+                                      child: Text(
+                                        eczane.address,
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.grey),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10, top: 8),
+                            child: InkWell(
+                              onTap: () {
+                                launchCaller(eczane.phone);
+                              },
+                              child: Row(
+                                children: [
+                                  Image(
+                                    height: 30,
+                                    width: 30,
+                                    image:
+                                        AssetImage("assets/images/phone.png"),
+                                  ),
+                                  Padding(
                                     padding: const EdgeInsets.only(left: 10),
                                     child: Text(
-                                      eczane.address,
+                                      eczane.phone,
                                       style: TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.bold,
                                           color: Colors.grey),
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 10, top: 8),
-                          child: InkWell(
-                            onTap: () {
-                              launchCaller(eczane.phone);
-                            },
-                            child: Row(
-                              children: [
-                                Image(
-                                  height: 30,
-                                  width: 30,
-                                  image: AssetImage("assets/images/phone.png"),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 10),
-                                  child: Text(
-                                    eczane.phone,
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.grey),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                );
+                  );
+                }
               },
             );
           } else {
